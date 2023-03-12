@@ -1,0 +1,17 @@
+sudo: required
+  services:
+  - docker
+
+before_install:
+  - docker build -t michaelios/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run michaelios/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t michaelios/multi-client ./client
+  - docker build -t michaelios/multi-nginx ./nginx
+  - docker build -t michaelios/multi-server ./server 
+  - docker build -t michaelios/multi-worker ./worker 
+
+
