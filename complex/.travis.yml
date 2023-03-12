@@ -14,4 +14,10 @@ after_success:
   - docker build -t michaelios/multi-server ./server 
   - docker build -t michaelios/multi-worker ./worker 
 
-
+# Log in to the docker CLI
+- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+# Take those images and push them to docker hub 
+- docker push michaelios/multi-client
+- docker push michaelios/multi-nginx
+- docker push michaelios/multi-server
+- docker push michaelios/multi-worker
