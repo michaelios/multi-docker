@@ -4,11 +4,11 @@ sudo: required
 
 before_install:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  
+
   - docker build -t michaelios/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true michaelios/react-test npm test -- --coverage
+  - docker run -e CI=true michaelios/react-test npm test 
 
 after_success:
   - docker build -t michaelios/multi-client ./client
